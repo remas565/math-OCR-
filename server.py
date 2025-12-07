@@ -20,20 +20,27 @@ app.add_middleware(
 # Create logs folder if not exists
 os.makedirs("logs", exist_ok=True)
 
-# ---------------------- DOWNLOAD WEIGHTS -----------------------
-WEIGHTS_PATH = "weights.pth"
+# ---------------------- WEIGHTS DOWNLOAD -----------------------
+WEIGHTS_PATH = "/tmp/weights.pth"   # <-- مهم جداً ل Railway
 DIRECT_URL = "https://drive.google.com/uc?export=download&id=1ZoWviITdtUAbfLs7okEIHPJIMgewnUqs"
 
-if not os.path.exists(WEIGHTS_PATH):
-    print("⚠️ weights.pth not found. Downloading...")
-    r = requests.get(DIRECT_URL)
+def download_weights():
+    if os.path.exists(WEIGHTS_PATH):
+        print("✔️ Weights already exist in /tmp")
+        return
+
+    print("⬇️ Downloading weights...")
+    r = requests.get(DIRECT_URL, allow_redirects=True)
     with open(WEIGHTS_PATH, "wb") as f:
         f.write(r.content)
-    print("✅ Download complete!")
+
+    print("✔️ Weights downloaded successfully!")
+
+download_weights()
 # ---------------------------------------------------------------
 
-# Load model once
-model = LatexOCR()
+# Load model once using TEMP path
+model = LatexOCR(weights=WEIGHTS_PATH)
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
@@ -70,13 +77,11 @@ async def predict(file: UploadFile = File(...)):
     return {
         "latex": latex_result,
         "upload_time": upload_time_ms,
-        "processing_time": processing_time_ms,
-        "total_time": total_time_ms,
+        "processing_time": processing_time_ms",
+        "total_time": total_time_ms",
         "log_file": log_path
     }
 
-
 if __name__ == "__main__":
-    import os
-    port = int(os.environ.get("PORT", 8000))  # <- ⚠️ هنا التعديل المهم
+    port = int(os.environ.get("PORT", 8000))
     uvicorn.run("server:app", host="0.0.0.0", port=port)
