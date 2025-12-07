@@ -1,10 +1,10 @@
 fastapi
 uvicorn
-pydantic
-albumentations
-transformers
-torch
-Pillow
-numpy
-pix2tex
+pillow
 python-multipart
+pix2tex
+opencv-python-headless
+requests
+torch==2.2.0+cpu
+torchvision==0.17.0+cpu
+-f https://download.pytorch.org/whl/cpu/torch_stable.html
