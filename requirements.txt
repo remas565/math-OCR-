@@ -10,3 +10,4 @@ torchvision==0.13.1
 opencv-python-headless
 einops
 timm
+
