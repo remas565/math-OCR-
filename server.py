@@ -77,8 +77,8 @@ async def predict(file: UploadFile = File(...)):
     return {
         "latex": latex_result,
         "upload_time": upload_time_ms,
-        "processing_time": processing_time_ms",
-        "total_time": total_time_ms",
+        "processing_time": processing_time_ms,
+        "total_time": total_time_ms,
         "log_file": log_path
     }
 
