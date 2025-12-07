@@ -1,9 +1,8 @@
+pix2tex @ git+https://github.com/lukas-blecher/pix2tex.git
+torch==2.2.0+cpu --index-url https://download.pytorch.org/whl/cpu
 transformers
-torch
 numpy
 pillow
 fastapi
 uvicorn
 opencv-python-headless
-pix2tex
-latexocr
