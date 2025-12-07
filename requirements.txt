@@ -4,6 +4,6 @@ pillow
 python-multipart
 requests
 pix2tex
-torch==2.1.0
-torchvision==0.16.0
+torch==1.12.1+cpu
+torchvision==0.13.1+cpu
 --extra-index-url https://download.pytorch.org/whl/cpu
