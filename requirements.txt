@@ -5,3 +5,5 @@ pillow
 fastapi
 uvicorn
 opencv-python-headless
+pix2tex
+latexocr
