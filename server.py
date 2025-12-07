@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from pix2tex.cli import LatexOCR
+from latexocr import LatexOCR
 from PIL import Image
 import io, uvicorn, os, time, requests
 from datetime import datetime
