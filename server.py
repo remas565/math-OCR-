@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from pix2tex.cli import LatexOCR
+from pix2tex.lite import LatexOCR
 from PIL import Image
 import io, os, time
 
@@ -14,19 +14,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-os.makedirs("logs", exist_ok=True)
-
-# -------------------------
-# Load Lightweight Model
-# -------------------------
-print("🔁 Loading lightweight Pix2TeX model...")
-
-model = LatexOCR(
-    checkpoint="https://github.com/Mathpix/pix2tex/releases/download/v0.1.0/weights-mini.pth"
-)
-
-print("✔ Model loaded with lightweight weights!")
-
+model = LatexOCR()  # <-- lightweight model, no weights needed
 
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
@@ -44,7 +32,6 @@ async def predict(file: UploadFile = File(...)):
         "latex": result,
         "processing_time": int((time.time() - start) * 1000)
     }
-
 
 if __name__ == "__main__":
     import uvicorn, os
